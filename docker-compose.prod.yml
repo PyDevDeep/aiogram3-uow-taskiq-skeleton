@@ -1,0 +1,40 @@
+services:
+  postgres:
+    # Close port 5432 from the outside world.
+    # Access is restricted to containers within the internal Docker network.
+    ports: []
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  redis:
+    # Close port 6379 from the outside world.
+    ports: []
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  bot:
+    # Override volumes for production.
+    # Remove `.:/app` bind mount so the code is executed strictly from the built image.
+    # Keep only the logs directory mounted.
+    volumes:
+      - ./logs:/app/logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  worker:
+    volumes:
+      - ./logs:/app/logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
