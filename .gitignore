@@ -1,0 +1,57 @@
+Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+collect_context.py
+project_context.txt
+test_results.txt
+parser_test.txt
+
+Byte-compiled / optimized / DLL files
+pycache/
+*.py[cod]
+*$py.class
+__pycache__/
+
+VS Code settings
+.vscode/
+
+# Logs
+logs/*
+!logs/.gitkeep
+*.log
+media/
+# Ігноруємо самі зображення, але залишаємо структуру
+app/assets/images/*
+!app/assets/images/.gitkeep
+
+OS generated files
+.DS_Store
+Thumbs.db
+*.db
+*.tar
+# Python Distribution / Build
+dist/
+build/
+*.egg-info/
+
+# Unit test / coverage reports
+.tox/
+.nox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.pytest_cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# MyPy cache
+.mypy_cache/.claude/
+.claude/
