@@ -1,15 +1,12 @@
 import asyncio
 from logging.config import fileConfig
 
-from sqlalchemy import pool
+from sqlalchemy import Connection, pool
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
 from bot.core.config import settings
 from bot.database.base import Base
-
-# IMPORTANT: Import all models here so Alembic can detect them
-from bot.database.models.user import User  # noqa
 
 config = context.config
 config.set_main_option("sqlalchemy.url", settings.database_url)
@@ -20,7 +17,7 @@ if config.config_file_name is not None:
 target_metadata = Base.metadata
 
 
-def do_run_migrations(connection):
+def do_run_migrations(connection: Connection) -> None:
     """Synchronous migration runner."""
     context.configure(connection=connection, target_metadata=target_metadata)
     with context.begin_transaction():

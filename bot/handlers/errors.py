@@ -8,7 +8,7 @@ router = Router()
 
 
 @router.errors()
-async def global_error_handler(event: types.ErrorEvent):
+async def global_error_handler(event: types.ErrorEvent) -> None:
     """Centralized fatal error interceptor."""
     logger.error(f"Error during update processing: {event.exception}")
     logger.error(traceback.format_exc())

@@ -9,7 +9,7 @@ JSON_PATH = Path(__file__).parent / "translations.json"
 LOCALES_DIR = BASE_DIR / "bot" / "locales"
 
 
-def fix():
+def fix() -> None:
     """Automatically appends missing translation keys into .ftl files from JSON database."""
     # 1. Retrieve the list of keys actually missing in the files
     missing_keys_report = validate()
@@ -33,7 +33,7 @@ def fix():
     # 3. Append only existing translations
     for lang, keys in missing_keys_report.items():
         ftl_path = LOCALES_DIR / lang / "LC_MESSAGES" / "messages.ftl"
-        new_entries = []
+        new_entries: list[str] = []
 
         for key in keys:
             # Extract ONLY the specific language. No fallback to 'en'.

@@ -14,7 +14,7 @@ router = Router()
 @router.message(CommandStart())
 async def cmd_start(
     message: Message, state: FSMContext, uow: SQLAlchemyUoW, _get: Callable[..., str]
-):
+) -> None:
     """
     Entry point. Demonstrates injection of UoW, i18n, and background task enqueuing.
     """

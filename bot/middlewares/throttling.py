@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Awaitable, Callable, Dict
+from typing import Any, Awaitable, Callable
 
 from aiogram import BaseMiddleware
 from aiogram.types import Message, TelegramObject
@@ -13,16 +13,16 @@ class AntiSpamMiddleware(BaseMiddleware):
     Drops spam requests before they reach handlers and the database.
     """
 
-    def __init__(self, rate_limit: float = 1.0):
+    def __init__(self, rate_limit: float = 1.0) -> None:
         self.rate_limit = rate_limit
         # In a real production environment, a Redis client injection should be here
         self.cache: dict[int, float] = {}
 
     async def __call__(
         self,
-        handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
+        handler: Callable[[TelegramObject, dict[str, Any]], Awaitable[Any]],
         event: TelegramObject,
-        data: Dict[str, Any],
+        data: dict[str, Any],
     ) -> Any:
         # Apply throttling only to messages from real users
         if not isinstance(event, Message) or not event.from_user:

@@ -27,7 +27,7 @@ async def main():
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
 
-    redis_client = Redis.from_url(settings.redis_url)
+    redis_client = Redis.from_url(settings.redis_url)  # type: ignore[reportUnknownMemberType]
     storage = RedisStorage(redis=redis_client)
 
     dp = Dispatcher(storage=storage)
@@ -45,7 +45,7 @@ async def main():
 
     try:
         await bot.delete_webhook(drop_pending_updates=True)
-        await dp.start_polling(bot)
+        await dp.start_polling(bot)  # type: ignore[reportUnknownMemberType]
     finally:
         await broker.shutdown()
         await bot.session.close()

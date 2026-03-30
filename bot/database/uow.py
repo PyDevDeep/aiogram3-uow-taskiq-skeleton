@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from bot.database.repositories.user import UserRepository
 
@@ -27,7 +27,7 @@ class IUnitOfWork(ABC):
 
 
 class SQLAlchemyUoW(IUnitOfWork):
-    def __init__(self, session_factory: Any):
+    def __init__(self, session_factory: async_sessionmaker[AsyncSession]) -> None:
         self._session_factory = session_factory
         self.session: AsyncSession | None = None
 

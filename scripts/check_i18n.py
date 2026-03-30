@@ -1,4 +1,3 @@
-import os
 import re
 from pathlib import Path
 
@@ -8,9 +7,9 @@ APP_DIR = BASE_DIR / "bot"
 LOCALES_DIR = APP_DIR / "locales"
 
 
-def get_keys_from_code():
+def get_keys_from_code() -> set[str]:
     """Finds translation keys, ignoring arguments after them."""
-    keys = set()
+    keys: set[str] = set()
     # Pattern: search for the beginning of the call and extract only the content of quotes
     pattern = re.compile(
         r'(?:(?:i18n|safe_get)\.get|_get)\(\s*[\'"]([a-zA-Z0-9_-]+)[\'"]'
@@ -26,7 +25,7 @@ def get_keys_from_code():
     return keys
 
 
-def get_keys_from_ftl(locale):
+def get_keys_from_ftl(locale: str) -> set[str]:
     """Extracts keys defined in the fluent translation file."""
     path = LOCALES_DIR / locale / "LC_MESSAGES" / "messages.ftl"
     if not path.exists():
@@ -36,7 +35,7 @@ def get_keys_from_ftl(locale):
     return set(re.findall(r"^([a-zA-Z0-9_-]+)\s*=", content, re.MULTILINE))
 
 
-def validate():
+def validate() -> dict[str, set[str]]:
     """Validates missing translations across all available locales."""
     code_keys = get_keys_from_code()
     if not LOCALES_DIR.exists():
@@ -44,7 +43,7 @@ def validate():
         exit(1)
 
     locales = [d.name for d in LOCALES_DIR.iterdir() if d.is_dir()]
-    missing_report = {}
+    missing_report: dict[str, set[str]] = {}
 
     for loc in locales:
         ftl_keys = get_keys_from_ftl(loc)

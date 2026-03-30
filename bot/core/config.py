@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
 
     TELEGRAM_BOT_TOKEN: SecretStr = Field(default=...)
-    ADMIN_IDS: list[int] = Field(default_factory=list)
+    ADMIN_IDS: list[int] = Field(default=[])
 
     REDIS_HOST: str = "redis"
     REDIS_PORT: int = 6379
