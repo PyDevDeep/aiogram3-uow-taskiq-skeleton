@@ -1,5 +1,5 @@
 aiogram>=3.4.0
-pydantic>=2.6.0
+pydantic>=2.13.4
 pydantic-settings>=2.2.0
 redis>=5.0.0
 openai>=1.14.0
